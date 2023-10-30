@@ -1,7 +1,7 @@
 ---
 title: |
   | STATS 771 - Project Proposal
-  | Applying KCV-SMOTE to Linear Regression
+  | Predicting credit card fraud using KCV-SMOTE, KFS, and SVM
 author: "Pao Zhu Vivian Hsu (Student Number: 400547994)"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 format: pdf
@@ -27,18 +27,37 @@ linestretch: 1.5
 
 ## Introduction
 
--   Description about credit card fraud and how it impacts companies and customers
--   Mention that this paper will do KCV-SMOTE using a different classifier and compare results with the paper (which uses the same dataset as )
+Credit cards are a form of electronic payment that are popular for its convenience, purchase protection, and rewards. Due to its popularity, credit card companies heavily rely on fraud detection to minimize losses and maintain satisfaction among their customers. Companies have started using machine learning techniques to predict fraudulent activity and are in constant search for stronger methods to improve fraud detection.
+
+In this paper, we propose a study to further investigate Kang and Zhang's K-fold cross-validation and synthetic minority oversampling technique (KCV-SMOTE) and key feature scanning (KFS) suggestion [-@kcvSmoteStudy] with a Support Vector Machine (SVM) model. The aim is to determine if such a model would produce a stronger prediction on credit card fraud.
 
 ## Literature Review
 
--   Description of the the proposed method (and how they suggested a method to handle )
--   Description of any advancements since the paper
--   
+To this date, a variety of machine learning techniques are being used to predict credit card fraud. This section provides a summary of some recent models found in literature.
+
+Itoo et al. [@litReviewItoo] built a logistic regression, K-nearest neighbour and Naïve Bayes model. Their logistic regression model was the strongest with an accuracy of 95%.
+
+Kang and Zhang [-@kcvSmoteStudy] introduced the KCV-SMOTE method to improve poor model performance caused by the imbalance of fraudulent and non-fraudulent data. They combined this method with a linear regression approach using publicly available data from online sources. Their final model 
+
+No additional work has been done to explore the KCV-SMOTE method on other classifiers since their paper was published.
+
 
 ## Data and Methods
 
-The proposed study will use public data on credit card fraud from the Kaggle website \[\].
+The proposed study will use a public data set on credit card fraud collected by Worldline and the Machine Learning Group of ULB, the Université Libre de Bruxelles [@creditData]. This is the same data used in Kang and Zhang's study [-@kcvSmoteStudy] and many other studies on credit card fraud [@litReviewItoo].
+
+We will follow Kang and Zhang's procedure [-@kcvSmoteStudy] but replace logistic regression with SVM. We chose to use SVM because it is a basic classifier that is strong for classification problems, such as credit card fraud. Here are the steps involved:
+
+  1) Divide the data into a training set and a test set according to a certain ratio.
+  2) Use KCV-SMOTE on the training set to obtain a synthetic training set.
+  3) Perform key feature scanning on the synthetic training set to obtain a sub-training set.
+  4) Train the SVM classifier for each sub-training set separately and getting a set of AUROC values. Sort the AUROC models and select the sub-training sets with the highest scores.
+  5) Train the intersection of several sub-training sets obtained in the previous step to obtain the best model, and input the test set into the best model to obtain the final prediction result.
+
+Once the models are built, we will compute their accuracy, precision, recall, F1-score, and area under the precision-recall curve (AUROC). These metrics will be used to compare models within the study. Since we are using the same data source and metrics as Kang and Zhang [-@kcvSmoteStudy], we will also compare the SVM models with Kang and Zhang's logistic regression models.
+
+All analyses will be performed using Python.
+
 
 ## Expected Results
 
@@ -46,7 +65,7 @@ We expect the results to perform better than linear regression model and the nor
 
 ## Timelines
 
-This study will contain two components, a written report and a presentation. In this section, we describe targeted dates for completing both components. We aim to finish data collection, preliminary visualization, and data splitting into training and testing sets by November 30, 2023. By December 31, 2023, we will finish the modelling, including a model for the default classifier method and another model using KCV-SMOTE version. By January 31, 2024, we will assess each model's performance and compare the results between models. The results will also be compared with Kang and Zhang's study [-@kcvSmoteStudy]. By February 28, 2024, we will finish a draft of the report. By March 31, 2024, we will prepare the presentation slides. By April 20, 2024, the report and presentation will be finalized. The presentation will occur during the last week of April.
+There are two main components to this project, a written report and a presentation. We aim to finish data collection, preliminary visualization, and data splitting by November 30, 2023. By December 31, 2023, we will finish the modelling, including a model for the default classifier method and another model using KCV-SMOTE and KFS version. By January 31, 2024, we will assess each model's performance and compare the results between models. The results will also be compared with Kang and Zhang's study [-@kcvSmoteStudy]. By February 28, 2024, we will finish a draft of the report. By March 31, 2024, we will prepare the presentation slides. By April 20, 2024, the report and presentation will be finalized. The presentation will occur during the last week of April.
 
 \newpage
 
