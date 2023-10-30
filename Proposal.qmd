@@ -1,0 +1,56 @@
+---
+title: |
+  | STATS 771 - Project Proposal
+  | Applying KCV-SMOTE to Linear Regression
+author: "Pao Zhu Vivian Hsu (Student Number: 400547994)"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+format: pdf
+editor: visual
+execute:
+  echo: false
+  warning: false
+  error: false
+header-includes:
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+bibliography: Proposal.bib
+csl: https://www.zotero.org/styles/apa-single-spaced
+nocite: |
+  @citeR
+fontsize: 11pt
+geometry: 
+  - margin = 1in
+linestretch: 1.5
+---
+
+\newpage
+
+## Introduction
+
+-   Description about credit card fraud and how it impacts companies and customers
+-   Mention that this paper will do KCV-SMOTE using a different classifier and compare results with the paper (which uses the same dataset as )
+
+## Literature Review
+
+-   Description of the the proposed method (and how they suggested a method to handle )
+-   Description of any advancements since the paper
+-   
+
+## Data and Methods
+
+The proposed study will use public data on credit card fraud from the Kaggle website \[\].
+
+## Expected Results
+
+We expect the results to perform better than linear regression model and the normal classifier.
+
+## Timelines
+
+This study will contain two components, a written report and a presentation. In this section, we describe targeted dates for completing both components. We aim to finish data collection, preliminary visualization, and data splitting into training and testing sets by November 30, 2023. By December 31, 2023, we will finish the modelling, including a model for the default classifier method and another model using KCV-SMOTE version. By January 31, 2024, we will assess each model's performance and compare the results between models. The results will also be compared with Kang and Zhang's study [-@kcvSmoteStudy]. By February 28, 2024, we will finish a draft of the report. By March 31, 2024, we will prepare the presentation slides. By April 20, 2024, the report and presentation will be finalized. The presentation will occur during the last week of April.
+
+\newpage
+
+## References
+
+::: {#refs}
+:::
