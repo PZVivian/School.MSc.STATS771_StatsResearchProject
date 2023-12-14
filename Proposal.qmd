@@ -1,7 +1,7 @@
 ---
 title: |
   | A simulation study on the properties of KCV-SMOTE and KFS
-  | using KCV-SMOTE and KFS
+  | in credit card fraud prediction
 subtitle: |
   | 
   | STATS 771 - Project Proposal
