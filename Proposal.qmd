@@ -1,12 +1,12 @@
 ---
 title: |
-  | Applying KCV-SMOTE and KFS to SVM
-  | in credit card fraud prediction
+  | A simulation study on the properties of KCV-SMOTE and KFS
+  | using KCV-SMOTE and KFS
 subtitle: |
   | 
   | STATS 771 - Project Proposal
 author: "Pao Zhu Vivian Hsu (Student Number: 400547994)"
-date: "October 31, 2023"
+date: "December 14, 2023"
 format: pdf
 editor: visual
 execute:
@@ -28,39 +28,42 @@ linestretch: 1.5
 
 ## Introduction
 
-Credit cards are an electronic form of payment that are popular for the convenience and protection they offer on everyday purchases. Due to its popularity, detecting credit card fraud is crucial for financial companies to maintain customer satisfaction and minimize losses. Machine learning techniques have become the predominant method to predict credit card fraud over the years and companies are constantly looking for ways to improve their predictions. In this paper, we propose a study that uses the support vector machine (SVM) algorithm with Kang and Zhang's method for online credit anti-fraud, a method that combines the K-fold cross-validation and synthetic minority oversampling technique (KCV-SMOTE) with key feature scanning (KFS) on a classifier [-@kcvSmoteStudy].
+Credit cards are an electronic form of payment that are popular for the convenience and protection they offer on everyday purchases. Due to its popularity, detecting credit card fraud is crucial for financial companies to maintain customer satisfaction and minimize losses. Machine learning techniques have become the predominant method to predict credit card fraud over the years and companies are constantly looking for ways to improve their predictions. In this paper, we propose a simulation study that explores how unbalanced and noisy data impacts Kang and Zhang's method for online credit anti-fraud, a method that combines the K-fold cross-validation and synthetic minority oversampling technique (KCV-SMOTE) with key feature scanning (KFS) on a classifier [-@kcvSmoteStudy].
 
 ## Literature Review
 
 To this date, a variety of machine learning techniques are being used to predict credit card fraud. Some techniques mentioned in recent literature include random forest, neural networks, SVM, k-nearest neighbours, logistic regression, and Naïve Bayes [@litReviewSulaiman, @litReviewItoo].
 
-As described by Sulaiman et al., researchers often have challenges with the imbalance of fraudulent and genuine transactions when it comes to studying credit card fraud [-@litReviewSulaiman]. Kang and Zhang introduced the KCV-SMOTE and KFS method to improve poor model performance caused this concern [-@kcvSmoteStudy]. The method was applied to a linear regression approach and the final model had an AUC of 98.62% [@kcvSmoteStudy].
+As described by Sulaiman et al. [-@litReviewSulaiman], researchers often have challenges with the imbalance of fraudulent and genuine transactions when it comes to studying credit card fraud . Kang and Zhang introduced the KCV-SMOTE and KFS method to improve poor model performance caused by this concern [-@kcvSmoteStudy]. The method was applied to a logistic regression approach and the final model had an AUC of 98.62% [@kcvSmoteStudy].
 
-No additional work has been done to explore the KCV-SMOTE and KFS method on other classifiers since their paper was published. Therefore, our proposed study will apply Kang and Zhang's method [-@kcvSmoteStudy] on a different classifier, namely SVM.
+No additional work has been done to explore the properties of the KCV-SMOTE and KFS method since their paper was published. Therefore, our proposed study will investigate the method's predictive performance under different proportions of unbalanced data and ratios of signal-to-noise.
 
 
-## Data and Methods
+## Methods
+### Simulation Study
+The proposed study will use a public data set on credit card fraud as the baseline for simulation. This data set is collected by Worldline and the Machine Learning Group of ULB, the Université Libre de Bruxelles [@creditData], and is frequently used in credit card fraud research including the work done by Kang and Zhang [-@kcvSmoteStudy, @litReviewItoo]. The ULB has created a transaction data simulator using this data [@fraudDetectionHandbook] which we will use to simulate data sets for our study. 
 
-The proposed study will use a public data set on credit card fraud collected by Worldline and the Machine Learning Group of ULB, the Université Libre de Bruxelles [@creditData]. This data set is frequently used in credit card fraud research including the work done by Kang and Zhang [-@kcvSmoteStudy, @litReviewItoo].
+To study how unbalanced data impacts prediction performance, we will create 5 sets of simulated data where the proportions of fraud transactions are 0.001%, 0.01%, 0.5%, 1%, and 5% of the full data set. These proportions were selected to mimic the proportion of fraud in real data sets, which tends to be less than 1% [@fraudDetectionHandbook]. To study how noisy data impacts prediction performance, we will create 5 sets of simulated data where the ratios of signal predictors to noise predictors are 1:9, 3:7, 5:5, 7:3, and 9:1.
 
-We will build two models in this study: an SVM model that utilizes Kang and Zhang's KCV-SMOTE and KFS methodology [-@kcvSmoteStudy] and a basic SVM model. The KCV-SMOTE and KFS methodology removes features that negatively influence classification accuracy and speed [@kcvSmoteStudy]. Thus, we have decided to study this method on an SVM classifier since SVM is a strong classifier for classification problems and performs well for data with less features [@litReviewSulaiman]. Here are details on our study's steps based on Kang and Zhang's work [-@kcvSmoteStudy]:
+### Application
+Once the data sets are simulated, we will then build a logistic regression model that utilizes Kang and Zhang's KCV-SMOTE and KFS methodology [-@kcvSmoteStudy] for each data set. Here are details on how we will build each model based on Kang and Zhang's work [-@kcvSmoteStudy]:
 
   1) Split the data into a training set and a testing set.
   2) Use KCV-SMOTE on the training set to obtain a synthetic training set.
   3) Perform key feature scanning on the synthetic training set to obtain a sub-training set.
-  4) Train the SVM classifier for each sub-training set separately and get a set of AUROC values. Sort the AUROC models and select the sub-training sets with the highest scores.
+  4) Train the logistic regression classifier for each sub-training set separately and get a set of AUROC values. Sort the AUROC models and select the sub-training sets with the highest scores.
   5) Train the intersection of the sub-training sets from the previous step to obtain the best model, and input the test set into the best model to obtain the final prediction result.
 
-Once the models are built, we will compute their accuracy, precision, recall, F1-score, and area under the precision-recall curve (AUROC). These metrics will be used to compare models within the study and with Kang and Zhang's logistic regression models [-@kcvSmoteStudy]. All analyses will be performed using Python. 
+Once the models are built, we will compute their accuracy, precision, recall, F1-score, and area under the precision-recall curve (AUROC) as Kang and Zhang have done [@kcvSmoteStudy]. We will then compare these metrics between models to draw a conclusion on KCV-SMOTE and KFS performance. All analyses will be performed using Python. 
 
 
-## Expected Results
+## Properties of the KCV SMOTE and KFS
 
-This study will provide greater insight into the effectiveness of Kang and Zhang's method [-@kcvSmoteStudy] with an SVM classifier. After applying their method, we expect the final model to perform better than a basic SVM and logistic regression model. Results of our study will inform further research into the method and guide the industry in building more accurate credit card fraud models.
+This study will provide greater insight into the effectiveness of Kang and Zhang's method [-@kcvSmoteStudy] under different proportions of unbalanced data and ratios of signal-to-noise. We expect the method to perform best on less imbalanced data and smaller signal-to-noise ratios. Results of our study will inform further research into the method and guide the industry in building more accurate credit card fraud models.
 
 ## Timelines
 
-There are two main components to this project, a paper and a presentation. By November 30, 2023, we will finish data collection, preliminary visualization, and data splitting. By December 31, 2023, we will complete the modelling. By January 31, 2024, we will compute performance metrics and compare the results between models. By February 28, 2024, we will complete a draft of the paper. By March 31, 2024, we will finish the presentation slides. By April 20, 2024, we will finalize the paper and presentation. Finally, during the last week of April, the presentation will occur.
+There are two main components to this project, a paper and a presentation. By January 10, 2023, we will complete the data simulation and data splitting. By January 31, 2024, we will complete the application. By February 28, 2024, we will compute performance metrics and compare the results between models. By March 31, 2024, we will complete a draft of the paper. By March 20, 2024, we will finish the presentation slides and finalize the paper. Finally, during the last week of April, the presentation will occur.
 
 \newpage
 
